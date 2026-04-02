@@ -1,0 +1,114 @@
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.06); opacity: 0.85; }
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px var(--rose), 0 0 20px var(--rose); }
+  50%       { text-shadow: 0 0 25px var(--rose), 0 0 50px var(--lavender); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  30%       { transform: translateX(8px); }
+  45%       { transform: translateX(-6px); }
+  60%       { transform: translateX(6px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-60px) scale(0.6); opacity: 0; }
+}
+
+@keyframes heroIdle {
+  0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 12px var(--rose)); }
+  50%       { transform: translateY(-8px); filter: drop-shadow(0 0 22px var(--lavender)); }
+}
+
+@keyframes enemyIdle {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-5px) scale(1.02); }
+}
+
+@keyframes enemyAttack {
+  0%   { transform: translateX(0); }
+  30%  { transform: translateX(40px); }
+  60%  { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes heroAttack {
+  0%   { transform: translateX(0); }
+  30%  { transform: translateX(-40px); }
+  60%  { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes hpDrain {
+  from { filter: brightness(1.5) saturate(2); }
+  to   { filter: brightness(1) saturate(1); }
+}
+
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0); }
+  20%       { transform: translate(-4px, 2px); }
+  40%       { transform: translate(4px, -2px); }
+  60%       { transform: translate(-3px, 3px); }
+  80%       { transform: translate(3px, -1px); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33%       { transform: translate(15px, -20px) scale(1.1); opacity: 0.8; }
+  66%       { transform: translate(-10px, 10px) scale(0.95); opacity: 0.5; }
+}
+
+@keyframes mapNodePulse {
+  0%, 100% { box-shadow: 0 0 8px var(--rose); transform: scale(1); }
+  50%       { box-shadow: 0 0 20px var(--rose), 0 0 40px var(--lavender); transform: scale(1.08); }
+}
+
+@keyframes crackOpen {
+  0%   { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%); }
+  100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+}
+
+@keyframes letterReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-fadeIn    { animation: fadeIn 0.6s ease forwards; }
+.anim-fadeInUp  { animation: fadeInUp 0.6s ease forwards; }
+.anim-shake     { animation: shake 0.5s ease; }
+.anim-pulse     { animation: pulse 2s ease infinite; }
+.anim-glow      { animation: glow 2.5s ease infinite; }
+.anim-heroIdle  { animation: heroIdle 3s ease-in-out infinite; }
+.anim-enemyIdle { animation: enemyIdle 2.5s ease-in-out infinite; }
+.anim-screenShake { animation: screenShake 0.4s ease; }

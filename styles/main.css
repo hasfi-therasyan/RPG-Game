@@ -1,0 +1,162 @@
+:root {
+  --bg:         #0d0714;
+  --bg2:        #150d1e;
+  --rose:       #f2a7bb;
+  --rose-dark:  #c2607a;
+  --plum:       #7c3f6e;
+  --lavender:   #c9a7d4;
+  --gold:       #e8b86d;
+  --shadow:     #1e0a2e;
+  --ink:        #0a0510;
+  --white:      #fff8f4;
+  --mist:       rgba(255,248,244,0.08);
+  --danger:     #e84040;
+  --mp-color:   #7ec8e3;
+  --success:    #7ed4a0;
+
+  --font-title: 'Cinzel', serif;
+  --font-body:  'Cormorant Garamond', serif;
+
+  --scene-bg:   var(--bg);
+  --scene-accent: var(--rose);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 18px;
+  cursor: none;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#particle-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#scene-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 0.6s ease;
+}
+
+#overlay.fade-in  { opacity: 1; pointer-events: all; }
+#overlay.fade-out { opacity: 0; pointer-events: none; }
+
+/* Custom cursor */
+body::after {
+  content: '';
+  position: fixed;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+  top: var(--cursor-y, 50%);
+  left: var(--cursor-x, 50%);
+}
+
+/* Noise overlay */
+#app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0.4;
+}
+
+#progress-bar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 50;
+}
+
+.progress-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--mist);
+  border: 1px solid var(--plum);
+  transition: all 0.4s ease;
+}
+
+.progress-dot.active {
+  background: var(--rose);
+  box-shadow: 0 0 10px var(--rose);
+}
+
+.progress-dot.done {
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  background: var(--scene-bg);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-title);
+  letter-spacing: 0.08em;
+}
+
+p, span, li {
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+button {
+  cursor: none;
+  font-family: var(--font-title);
+  letter-spacing: 0.1em;
+  border: none;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  html, body { font-size: 15px; }
+  #progress-bar { top: 10px; }
+}

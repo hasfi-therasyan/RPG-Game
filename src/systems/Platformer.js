@@ -598,7 +598,6 @@ export class Platformer {
 
   _drawHero(ctx) {
     const h   = this.hero;
-    const bob = h.onGround ? 0 : h.vy * 0.5;
     const x   = h.x;
     const y   = h.y;
 

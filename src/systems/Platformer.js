@@ -29,6 +29,9 @@ export class Platformer {
     this.camera = { x: 0, y: 0 };
     this.particles = [];
     this.time = 0;
+    this.fixedStep = 1 / 60;
+    this.accumulator = 0;
+    this.lastTime = 0;
 
     this._buildLevel();
     this._setupInput();
@@ -79,7 +82,7 @@ export class Platformer {
 
   update() {
     if (this.won) return;
-    this.time += 0.016;
+    this.time += this.fixedStep;
     this._updateHero();
     this._updateEnemies();
     this._updateRocks();
@@ -726,14 +729,31 @@ export class Platformer {
 
   start() {
     this.running = true;
+    this.lastTime = performance.now() / 1000;
+    this.accumulator = 0;
     this._loop();
   }
 
-  _loop() {
+  _loop(nowMs = performance.now()) {
     if (!this.running) return;
-    this.update();
+    const now = nowMs / 1000;
+    let frameTime = now - this.lastTime;
+    this.lastTime = now;
+
+    // Clamp very large gaps (tab switches / stalls) to avoid huge catch-up bursts.
+    frameTime = Math.min(frameTime, 0.25);
+    this.accumulator += frameTime;
+
+    let steps = 0;
+    const maxStepsPerFrame = 5;
+    while (this.accumulator >= this.fixedStep && steps < maxStepsPerFrame) {
+      this.update();
+      this.accumulator -= this.fixedStep;
+      steps++;
+    }
+
     this.draw();
-    this._raf = requestAnimationFrame(() => this._loop());
+    this._raf = requestAnimationFrame((ts) => this._loop(ts));
   }
 
   destroy() {
